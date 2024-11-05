@@ -1,4 +1,4 @@
-package se.dawid.theburglar.entitiy;
+package se.dawid.theburglar.game.entitiy;
 
 public abstract class Entity {
 
@@ -13,13 +13,17 @@ public abstract class Entity {
     }
 
     public void punch(Entity target) {
-
+        target.takeHit(getDamage());
     }
 
     private void takeHit(int damage) {
         if(damage > health) return;
 
         health -= damage;
+    }
+
+    public void addDamage(int damage) {
+        this.damage += damage;
     }
 
     public boolean isConscious() {

@@ -1,4 +1,7 @@
-package se.dawid.theburglar;
+package se.dawid.theburglar.game;
+
+import se.dawid.theburglar.game.room.RoomManager;
+import se.dawid.theburglar.input.InputHandler;
 
 public class Game {
 
@@ -6,12 +9,30 @@ public class Game {
 
     private boolean running = false;
 
-    public Game start() {
+    private RoomManager roomManager;
+
+    private InputHandler inputHandler;
+
+
+    private Game(){}
+
+    public void start() {
         while(running) {
             run();
         }
+    }
+
+
+    public Game setRoomMananger(RoomManager roomManager) {
+        this.roomManager = roomManager;
         return this;
     }
+
+    public Game setInputHandler(InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
+        return this;
+    }
+
 
 
     private void run() {

@@ -1,4 +1,4 @@
-package se.dawid.theburglar.entitiy;
+package se.dawid.theburglar.game.entitiy;
 
 public class Resident extends Entity{
 

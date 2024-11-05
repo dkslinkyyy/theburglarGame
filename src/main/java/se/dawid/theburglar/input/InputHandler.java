@@ -1,4 +1,7 @@
 package se.dawid.theburglar.input;
 
-public class InputHandler {
+public interface InputHandler {
+
+
+    InputHandler onInput(String input);
 }

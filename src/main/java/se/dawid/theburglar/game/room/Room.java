@@ -1,4 +1,12 @@
 package se.dawid.theburglar.game.room;
 
-public class Room {
+public interface Room {
+
+     String getName();
+
+     RoomType[] getAvailableRooms();
+
+     String getMessage();
+
+     void onEnter();
 }
