@@ -1,9 +1,6 @@
 package se.dawid.theburglar.game.room;
 
-import se.dawid.theburglar.game.Game;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RoomManager {
 
@@ -23,17 +20,24 @@ public class RoomManager {
         return instance;
     }
 
+    public void setCurrentRoom(Room room) {
+        this.currentRoom = room;
+    }
+
     public RoomManager setup(Room... rooms) {
         this.rooms.addAll(Arrays.asList(rooms));
         return this;
     }
 
-    public RoomManager setStartingRoom(RoomType roomType) {
-        currentRoom = rooms.stream()
-                .filter(room -> room.getName().equalsIgnoreCase(roomType.getName()))
+    public void setStartingRoom(RoomLayout layout) {
+        currentRoom = findMatching(layout.getName());
+    }
+
+    public Room findMatching(String roomName) throws NoSuchElementException {
+        return rooms.stream()
+                .filter(room -> room.getLayout().getName().equalsIgnoreCase(roomName))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Hittade int rummet."));
-        return this;
+                .orElseThrow(() -> new NoSuchElementException("Hittade inte rummet."));
     }
 
     public Room getCurrentRoom() {

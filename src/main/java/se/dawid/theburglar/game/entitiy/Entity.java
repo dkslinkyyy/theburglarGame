@@ -17,8 +17,6 @@ public abstract class Entity {
     }
 
     private void takeHit(int damage) {
-        if(damage > health) return;
-
         health -= damage;
     }
 

@@ -1,12 +1,16 @@
 package se.dawid.theburglar.game.room;
 
+import se.dawid.theburglar.game.entitiy.Entity;
+
+import java.util.Scanner;
+
 public interface Room {
 
-     String getName();
+     RoomLayout getLayout();
 
-     RoomType[] getAvailableRooms();
+     RoomLayout[] getAvailableRooms();
 
      String getMessage();
 
-     void onEnter();
+     void onEnter(Scanner scanner, Entity... entities);
 }
