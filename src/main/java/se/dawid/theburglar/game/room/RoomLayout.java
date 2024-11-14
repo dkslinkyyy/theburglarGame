@@ -5,7 +5,7 @@ public enum RoomLayout {
     KITCHEN("Köket"),
     BEDROOM("Sovrummet"),
     OFFICE("Kontoret"),
-    HALLWAY("Hall");
+    HALLWAY("Hallen");
 
     private final String name;
     RoomLayout(String name) {

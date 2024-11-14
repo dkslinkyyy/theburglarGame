@@ -16,7 +16,7 @@ public abstract class Entity {
         target.takeHit(getDamage());
     }
 
-    private void takeHit(int damage) {
+    public void takeHit(int damage) {
         health -= damage;
     }
 

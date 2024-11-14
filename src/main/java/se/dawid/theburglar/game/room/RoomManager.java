@@ -4,40 +4,39 @@ import java.util.*;
 
 public class RoomManager {
 
-    private static RoomManager instance;
+    private static final RoomManager instance = new RoomManager();
 
     private Room currentRoom;
 
-    private List<Room> rooms = new ArrayList<>();
+    private final List<Room> rooms = new ArrayList<>();
 
     private RoomManager(){}
 
-
     public static RoomManager getInstance() {
-        if(instance == null) {
-            instance = new RoomManager();
-        }
         return instance;
+    }
+
+    public void setup(Room... rooms) {
+        this.rooms.addAll(Arrays.asList(rooms));
+    }
+
+    public void setStartingRoom(RoomLayout layout) {
+        Optional<Room> startingRoom = findMatching(layout.getName());
+        if (startingRoom.isPresent()) {
+            this.currentRoom = startingRoom.get();
+        } else {
+            System.out.println("Starting room not found: " + layout.getName());
+        }
     }
 
     public void setCurrentRoom(Room room) {
         this.currentRoom = room;
     }
 
-    public RoomManager setup(Room... rooms) {
-        this.rooms.addAll(Arrays.asList(rooms));
-        return this;
-    }
-
-    public void setStartingRoom(RoomLayout layout) {
-        currentRoom = findMatching(layout.getName());
-    }
-
-    public Room findMatching(String roomName) throws NoSuchElementException {
+    public Optional<Room> findMatching(String roomName) {
         return rooms.stream()
                 .filter(room -> room.getLayout().getName().equalsIgnoreCase(roomName))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Hittade inte rummet."));
+                .findFirst();
     }
 
     public Room getCurrentRoom() {

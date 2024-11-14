@@ -16,7 +16,10 @@ public class Hallway implements Room {
 
     @Override
     public RoomLayout[] getAvailableRooms() {
-        return new RoomLayout[0];
+        return new RoomLayout[]
+                {
+                        RoomLayout.LIVING_ROOM
+                };
     }
 
     @Override
@@ -25,16 +28,13 @@ public class Hallway implements Room {
     }
 
     @Override
-    public void onEnter(Scanner scanner, Entity... entities) {
-        Resident resident = (Resident) entities[1];
-        Burglar burglar = (Burglar) entities[0];
-
+    public void onEnter(Scanner scanner, Resident resident, Burglar burglar) {
         while (burglar.isConscious() && resident.isConscious()) {
             System.out.print("Ditt val: ");
             String action = scanner.nextLine().trim().toLowerCase();
 
             if (action.equals("leave")) {
-                System.out.println("Du valde att lämna korridoren.");
+                System.out.println("Du valde att lämna hallen.");
                 return;
             }
 

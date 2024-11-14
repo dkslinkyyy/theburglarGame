@@ -15,13 +15,7 @@ public class Utils {
 
         for(String value : values) {
 
-            if (formatted.contains("%p")) {
-                formatted = formatted.replaceAll("%p", value);
-
-            } else if (formatted.contains("%s")) {
-                formatted = formatted.replaceAll("%s", value);
-            }
-
+                formatted = formatted.replaceAll("%r", value);
         }
         if(spacing) {
             System.out.println();
