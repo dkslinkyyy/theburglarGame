@@ -1,5 +1,8 @@
 package se.dawid.theburglar.game.room.layout;
 
+import se.dawid.theburglar.game._utilities.Command;
+import se.dawid.theburglar.game._utilities.Message;
+import se.dawid.theburglar.game._utilities.Utils;
 import se.dawid.theburglar.game.entitiy.Burglar;
 import se.dawid.theburglar.game.entitiy.Resident;
 import se.dawid.theburglar.game.room.Room;
@@ -16,7 +19,7 @@ public class Kitchen implements Room {
     @Override
     public RoomLayout[] getAvailableRooms() {
         return new RoomLayout[] {
-                RoomLayout.LIVING_ROOM // center
+                RoomLayout.LIVING_ROOM
         };
     }
 
@@ -29,16 +32,16 @@ public class Kitchen implements Room {
     public void onEnter(Scanner scanner, Resident resident, Burglar burglar) {
 
         while (!resident.hasFryingPan()) {
-            System.out.println("Du har hittat en stekpanna i köket! Skriv Y|N för att ta upp den");
+            Utils.print(Message.FOUND_FRYING_PAN, true);
             String action = scanner.nextLine();
 
-            if (action.equalsIgnoreCase("Y")) {
+            if (action.equalsIgnoreCase(Command.AGREE_CMD.getMessage())) {
                 resident.addDamage(3);
                 resident.setFryingPan(true);
-                System.out.println("Du valde att ta upp stekpannan.");
+                Utils.print(Message.TOOK_FRYING_PAN, true);
                 break;
-            } else if (action.equalsIgnoreCase("N")) {
-                System.out.println("Du valde att undvika stekpannan. Det här kan ha konsekvenser...");
+            } else if (action.equalsIgnoreCase(Command.DENY_CMD.getMessage())) {
+                Utils.print(Message.DID_NOT_TAKE_FRYING_PAN, true);
                 break;
             } else {
                 System.out.println("Ogiltigt val. " + getMessage());

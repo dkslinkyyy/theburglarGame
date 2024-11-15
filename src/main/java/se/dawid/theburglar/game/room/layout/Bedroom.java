@@ -15,7 +15,9 @@ public class Bedroom implements Room {
 
     @Override
     public RoomLayout[] getAvailableRooms() {
-        return new RoomLayout[0];
+        return new RoomLayout[] {
+                RoomLayout.LIVING_ROOM
+        };
     }
 
     @Override

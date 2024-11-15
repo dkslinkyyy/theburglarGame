@@ -7,7 +7,7 @@ import se.dawid.theburglar.game.entitiy.Resident;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BurglarTest {
+public class EntityTest {
 
     private Resident resident;
     private Burglar burglar;
@@ -50,7 +50,7 @@ public class BurglarTest {
 
     @Test
     void testBattleWithFryingPan() {
-        resident.addDamage(3); // Resident's damage is now 6
+        resident.addDamage(3); //låtsas att boende får stekpana
 
         while (resident.isConscious() && burglar.isConscious()) {
             burglar.takeHit(resident.getDamage());

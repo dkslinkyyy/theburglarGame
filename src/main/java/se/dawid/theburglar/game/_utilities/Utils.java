@@ -24,5 +24,9 @@ public class Utils {
 
     }
 
-
+    public static void print(String text) {
+        if(!text.isEmpty()) {
+            System.out.println(text);
+        }
+    }
 }

@@ -19,7 +19,8 @@ public class LivingRoom implements Room {
         return new RoomLayout[] {
                 RoomLayout.KITCHEN,
                 RoomLayout.OFFICE,
-                RoomLayout.HALLWAY
+                RoomLayout.HALLWAY,
+                RoomLayout.BEDROOM
         };
     }
 

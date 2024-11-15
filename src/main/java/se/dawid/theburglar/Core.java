@@ -24,8 +24,10 @@ public class Core {
         Game.getInstance()
                 .setRoomManager(roomManager)
                 .setInputHandler(new GameInputController(roomManager,
-                        new Burglar("Tjuv", 12, 4),
-                        new Resident("Boende", 12, 3)))
+                        new Resident("Boende", 12, 3),
+                        new Burglar("Tjuv", 12, 4)
+                        ))
+                .printInfo()
                 .start();
 
 

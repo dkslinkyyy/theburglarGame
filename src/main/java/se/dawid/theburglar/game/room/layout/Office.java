@@ -1,5 +1,6 @@
 package se.dawid.theburglar.game.room.layout;
 
+import se.dawid.theburglar.game._utilities.Command;
 import se.dawid.theburglar.game.entitiy.Burglar;
 import se.dawid.theburglar.game.entitiy.Entity;
 import se.dawid.theburglar.game.entitiy.Resident;
@@ -34,12 +35,12 @@ public class Office implements Room {
                 System.out.print("Vill du ringa polisen? Skriv Y|N: ");
                 String action = scanner.nextLine().trim();
 
-                if (action.equalsIgnoreCase("Y")) {
+                if (action.equalsIgnoreCase(Command.AGREE_CMD.getMessage())) {
                     System.out.println("Du ringde polisen i god tid! Du har vunnit!");
                     System.exit(0);
                     break;
-                } else if (action.equalsIgnoreCase("N")) {
-                    System.out.println("Attans! Tjuven flydde från platsen och du förlorade.");
+                } else if (action.equalsIgnoreCase(Command.DENY_CMD.getMessage())) {
+                    System.out.println("Attans! Tjuven flydde från platsen och du förlorade..");
                     System.exit(0);
                     break;
                 } else {

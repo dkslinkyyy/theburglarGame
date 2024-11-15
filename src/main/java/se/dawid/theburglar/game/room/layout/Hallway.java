@@ -44,7 +44,7 @@ public class Hallway implements Room {
             }
 
             resident.punch(burglar);
-            System.out.println("Du slog tjuven!");
+            System.out.println("Du slog tjuven! tjuven har " + burglar.getHealth() + " hälsa");
 
             if (!burglar.isConscious()) {
                 System.out.println("Tjuven är medvetslös!");
@@ -52,7 +52,7 @@ public class Hallway implements Room {
             }
 
             burglar.punch(resident);
-            System.out.println("Tjuven slog tillbaka!");
+            System.out.println("Tjuven slog tillbaka! du har " + resident.getHealth() + " hälsa");
 
             if (!resident.isConscious()) {
                 System.out.println("Du har blivit medvetslös!");
@@ -64,6 +64,7 @@ public class Hallway implements Room {
             System.out.println("Tjuven är besegrad! Gå till kontoret för att ringa polisen.");
         } else if (!resident.isConscious()) {
             System.out.println("Tjuven vann! Spelet är över.");
+            System.exit(0);
         }
     }
 }

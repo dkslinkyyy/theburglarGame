@@ -3,8 +3,10 @@ package se.dawid.theburglar.game._utilities;
 public enum Command {
     GO_TO_CMD("gå till"),
     EXIT_CMD("EXIT"),
-    FIGHT_CMD("slå"),
-    LEAVE_CMD("lämna");
+    AGREE_CMD("Y"),
+    DENY_CMD("N"),
+    FIGHT_CMD("fight"),
+    LEAVE_CMD("leave");
 
     private String message;
 

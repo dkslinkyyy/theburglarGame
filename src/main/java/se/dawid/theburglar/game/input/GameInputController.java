@@ -10,7 +10,6 @@ import se.dawid.theburglar.game.room.Room;
 import se.dawid.theburglar.game.room.RoomLayout;
 import se.dawid.theburglar.game.room.RoomManager;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -30,28 +29,47 @@ public class GameInputController implements InputHandler {
         Utils.print(Message.WHERE_NEXT, true);
         String input = scanner.nextLine();
 
-        if (input.equalsIgnoreCase(Command.EXIT_CMD.getMessage())) {
-            Utils.print(Message.ENDING_GAME, true);
-            System.exit(0);
+        if (isExitCommand(input)) return;
 
-        } else if (input.startsWith(Command.GO_TO_CMD.getMessage())) {
-            String roomName = input.substring(Command.GO_TO_CMD.getMessage().length()).trim();
-            Optional<Room> roomOpt = roomManager.findMatching(roomName);
-
-            if (roomOpt.isPresent()) {
-                Room targetRoom = roomOpt.get();
-                if (isRoomAccessible(currentRoom, targetRoom)) {
-                    changeRoom(targetRoom);
-                } else {
-                    Utils.print(Message.ROOM_NOT_AVAILABLE, true);
-                }
-            } else {
-                Utils.print(Message.ROOM_NOT_FOUND, true);
-            }
-
+        if (isGoToCommand(input)) {
+            handleRoomChange(input, currentRoom);
         } else {
-            currentRoom.onEnter(scanner, (Resident) entities[1], (Burglar) entities[0]);
+            currentRoom.onEnter(scanner, (Resident) entities[0], (Burglar) entities[1]);
         }
+    }
+
+    private boolean isExitCommand(String input) {
+        if (!input.equalsIgnoreCase(Command.EXIT_CMD.getMessage())) return false;
+
+        Utils.print(Message.ENDING_GAME, true);
+        System.exit(0);
+        return true;
+    }
+
+    private boolean isGoToCommand(String input) {
+        return input.startsWith(Command.GO_TO_CMD.getMessage());
+    }
+
+    private void handleRoomChange(String input, Room currentRoom) {
+        String roomName = input.substring(Command.GO_TO_CMD.getMessage().length()).trim();
+        Optional<Room> roomOpt = roomManager.findMatching(roomName);
+
+        if (roomOpt.isEmpty()) {
+            Utils.print(Message.ROOM_NOT_FOUND, true);
+            Utils.sleep();
+            return;
+        }
+
+        Room targetRoom = roomOpt.get();
+
+
+        if (!isRoomAccessible(currentRoom, targetRoom)) {
+            Utils.print(Message.ROOM_NOT_AVAILABLE, true);
+            Utils.sleep();
+            return;
+        }
+
+        changeRoom(targetRoom);
     }
 
     private boolean isRoomAccessible(Room currentRoom, Room targetRoom) {
@@ -63,18 +81,23 @@ public class GameInputController implements InputHandler {
         return false;
     }
 
+
     private void changeRoom(Room newRoom) {
         Room currentRoom = roomManager.getCurrentRoom();
 
         if (newRoom.equals(currentRoom)) {
             Utils.print(Message.ALREADY_IN_ROOM, true, newRoom.getLayout().getName());
+            Utils.sleep();
             return;
         }
 
         roomManager.setCurrentRoom(newRoom);
         Utils.print(Message.MOVED_TO_ROOM, true, newRoom.getLayout().getName());
-        System.out.println(newRoom.getMessage());
+        Utils.sleep();
+        Utils.print(newRoom.getMessage());
+        Utils.sleep();
 
-        newRoom.onEnter(scanner, (Resident) entities[1], (Burglar) entities[0]);
+        newRoom.onEnter(scanner, (Resident) entities[0], (Burglar) entities[1]);
     }
+
 }
